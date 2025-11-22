@@ -26,6 +26,20 @@ dotnet publish -c Release
 
 The output will be in `bin/Release/net10.0/publish/wwwroot/` and can be deployed to any static web host.
 
+### GitHub Pages Deployment
+
+The app automatically deploys to GitHub Pages when changes are pushed to the `main` branch.
+
+**Initial Setup:**
+1. Go to your repository settings on GitHub
+2. Navigate to Pages (under Code and automation)
+3. Under "Source", select "GitHub Actions"
+
+**Access the deployed app:**
+- URL: `https://steveyackey.github.io/letters-for-luna/`
+
+The workflow will automatically build and deploy the app on every push to main.
+
 ## How It Works
 
 1. The app displays a random letter in both uppercase and lowercase
