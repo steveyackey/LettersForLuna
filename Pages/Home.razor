@@ -1,0 +1,51 @@
+﻿@page "/"
+@inject IJSRuntime JS
+
+<PageTitle>Letters for Luna</PageTitle>
+
+<div class="letter-container" @onclick="OnLetterTap">
+    <div class="letter-display">
+        <span class="uppercase">@char.ToUpper(currentLetter)</span>
+        <span class="lowercase">@char.ToLower(currentLetter)</span>
+    </div>
+</div>
+
+@code {
+    private char currentLetter = 'A';
+    private static readonly char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+    private Random random = new Random();
+
+    protected override void OnInitialized()
+    {
+        SelectRandomLetter();
+    }
+
+    private async Task OnLetterTap()
+    {
+        // Speak the letter
+        await SpeakLetter(currentLetter.ToString());
+        
+        // Wait a moment before switching
+        await Task.Delay(1500);
+        
+        // Switch to a new random letter
+        SelectRandomLetter();
+    }
+
+    private void SelectRandomLetter()
+    {
+        char newLetter;
+        do
+        {
+            newLetter = letters[random.Next(letters.Length)];
+        } while (newLetter == currentLetter && letters.Length > 1);
+        
+        currentLetter = newLetter;
+    }
+
+    private async Task SpeakLetter(string letter)
+    {
+        // Just speak the letter name, not "uppercase"
+        await JS.InvokeVoidAsync("speakText", letter.ToUpper());
+    }
+}
