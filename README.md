@@ -36,7 +36,7 @@ The app automatically deploys to GitHub Pages when changes are pushed to the `ma
 3. Under "Source", select "GitHub Actions"
 
 **Access the deployed app:**
-- URL: `https://steveyackey.github.io/letters-for-luna/`
+- URL: `https://steveyackey.github.io/LettersForLuna/`
 
 The workflow will automatically build and deploy the app on every push to main.
 
