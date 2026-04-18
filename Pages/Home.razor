@@ -10,10 +10,16 @@
     </div>
 </div>
 
+<div class="mode-toggle" @onclick="ToggleMode" @onclick:stopPropagation="true">
+    @(isAlphabetical ? "ABC" : "Random")
+</div>
+
 @code {
     private char currentLetter = 'A';
     private static readonly char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
     private Random random = new Random();
+    private bool isAlphabetical = false;
+    private int currentIndex = 0;
 
     protected override void OnInitialized()
     {
@@ -28,8 +34,21 @@
         // Wait a moment before switching
         await Task.Delay(1500);
         
-        // Switch to a new random letter
-        SelectRandomLetter();
+        // Switch to the next letter
+        SelectNextLetter();
+    }
+
+    private void SelectNextLetter()
+    {
+        if (isAlphabetical)
+        {
+            currentIndex = (currentIndex + 1) % letters.Length;
+            currentLetter = letters[currentIndex];
+        }
+        else
+        {
+            SelectRandomLetter();
+        }
     }
 
     private void SelectRandomLetter()
@@ -41,6 +60,19 @@
         } while (newLetter == currentLetter && letters.Length > 1);
         
         currentLetter = newLetter;
+    }
+
+    private void ToggleMode()
+    {
+        isAlphabetical = !isAlphabetical;
+        if (isAlphabetical)
+        {
+            currentIndex = Array.IndexOf(letters, char.ToUpper(currentLetter));
+        }
+        else
+        {
+            SelectRandomLetter();
+        }
     }
 
     private async Task SpeakLetter(string letter)

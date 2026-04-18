@@ -32,6 +32,24 @@ html, body {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.mode-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1rem;
+    padding: 0.3rem 1rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    touch-action: manipulation;
+}
+
 .uppercase {
     font-size: 25vw;
     font-weight: bold;
