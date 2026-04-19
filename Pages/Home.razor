@@ -17,8 +17,10 @@
 @code {
     private char currentLetter = 'A';
     private static readonly char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+    private const int AdvanceDelayMilliseconds = 3000;
     private Random random = new Random();
     private bool isAlphabetical = false;
+    private bool isTapInProgress = false;
     private int currentIndex = 0;
 
     protected override void OnInitialized()
@@ -28,14 +30,28 @@
 
     private async Task OnLetterTap()
     {
-        // Speak the letter
-        await SpeakLetter(currentLetter.ToString());
-        
-        // Wait a moment before switching
-        await Task.Delay(1500);
-        
-        // Switch to the next letter
-        SelectNextLetter();
+        if (isTapInProgress)
+        {
+            return;
+        }
+
+        isTapInProgress = true;
+
+        try
+        {
+            // Speak the letter
+            await SpeakLetter(currentLetter.ToString());
+
+            // Wait before allowing the letter to advance
+            await Task.Delay(AdvanceDelayMilliseconds);
+
+            // Switch to the next letter
+            SelectNextLetter();
+        }
+        finally
+        {
+            isTapInProgress = false;
+        }
     }
 
     private void SelectNextLetter()
