@@ -6,7 +6,7 @@ A full-screen, mobile-focused Blazor WebAssembly app for toddlers learning lette
 
 - **Full-screen letter display** - Shows both uppercase and lowercase letters in large, easy-to-read text
 - **Interactive learning** - Tap anywhere on the screen to hear the letter pronounced
-- **Random letter switching** - After speaking, automatically switches to a new random letter
+- **Toddler-safe tap handling** - Ignores repeated taps while processing and waits at least 3 seconds before advancing
 - **Mobile-optimized** - Designed for touch interaction with no navigation or distractions
 - **Text-to-speech** - Uses the Web Speech API for natural letter pronunciation
 
@@ -45,7 +45,8 @@ The workflow will automatically build and deploy the app on every push to main.
 1. The app displays a random letter in both uppercase and lowercase
 2. When the user taps anywhere on the screen:
    - The letter is spoken using text-to-speech
-   - After a brief delay, a new random letter is displayed
+   - Additional taps are ignored until processing completes
+   - After at least 3 seconds, a new random letter is displayed
 3. The cycle continues for endless learning fun!
 
 ## Technical Details
